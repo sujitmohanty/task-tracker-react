@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react';
-import { Container, Row, Col, Button } from 'react-bootstrap';
+import { Container, Row, Col, Button, Spinner } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { getTasks } from '../store/task/taskAction';
-import { taskList } from '../store/task/taskSelector';
+import { taskList, getTaskLoading } from '../store/task/taskSelector';
 
 export default function ListTasks() {
   const dispatch = useDispatch();
   const taskListSelector = useSelector(taskList);
+  const getTaskLoadingSelector = useSelector(getTaskLoading);
 
   useEffect(() => {
     getTaskList();
@@ -19,6 +20,9 @@ export default function ListTasks() {
 
   return (
     <Container>
+      {getTaskLoadingSelector && (
+        <Spinner animation='border' className='page-loader' />
+      )}
       <Row className='justify-content-center mt-5'>
         <Col>
           <ul className='list-group'>
@@ -29,7 +33,7 @@ export default function ListTasks() {
               >
                 {task.title}
                 <Button size='sm' variant='outline-danger'>
-                  <i class='fas fa-trash'></i>
+                  <i className='fas fa-trash'></i>
                 </Button>
               </li>
             ))}

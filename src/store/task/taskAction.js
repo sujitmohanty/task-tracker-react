@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import apiConfig from '../../config/api';
 import * as taskActionType from './taskActionType';
@@ -18,5 +20,6 @@ export const getTasks = () => async (dispatch) => {
     dispatch({
       type: taskActionType.GET_TASKS_FAILURE,
     });
+    toast.error(error.message);
   }
 };

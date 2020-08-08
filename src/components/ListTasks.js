@@ -20,6 +20,9 @@ export default function ListTasks() {
 
   return (
     <Container>
+      {!getTaskLoadingSelector && taskListSelector.length === 0 && (
+        <h1>Task List is Empty</h1>
+      )}
       {getTaskLoadingSelector && (
         <Spinner animation='border' className='page-loader' />
       )}

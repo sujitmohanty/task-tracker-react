@@ -36,11 +36,13 @@ export const addTask = (taskData) => async (dispatch) => {
       type: taskActionType.ADD_TASK_SUCCESS,
       payload: result.data,
     });
+    toast.success('Task added successfully!');
   } catch (error) {
     console.log(error);
     dispatch({
       type: taskActionType.ADD_TASK_FAILURE,
     });
     toast.error(error.message);
+    throw error;
   }
 };

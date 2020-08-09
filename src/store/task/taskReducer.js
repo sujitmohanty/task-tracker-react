@@ -5,6 +5,7 @@ const initialTaskState = {
   getTaskLoading: false,
   addTaskLoading: false,
   deleteTaskLoading: false,
+  updateTaskLoading: false,
 };
 
 const taskReducer = (state = initialTaskState, { type, payload }) => {
@@ -65,6 +66,28 @@ const taskReducer = (state = initialTaskState, { type, payload }) => {
         ...state,
         deleteTaskLoading: false,
       };
+
+    case taskActionType.UPDATE_TASK_BEGINS:
+      return {
+        ...state,
+        updateTaskLoading: true,
+      };
+
+    case taskActionType.UPDATE_TASK_SUCCESS:
+      return {
+        ...state,
+        updateTaskLoading: false,
+        taskList: state.taskList.map((task) =>
+          task.id === payload.id ? payload : task
+        ),
+      };
+
+    case taskActionType.UPDATE_TASK_FAILURE:
+      return {
+        ...state,
+        updateTaskLoading: false,
+      };
+
     default:
       return state;
   }

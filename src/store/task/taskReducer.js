@@ -4,6 +4,7 @@ const initialTaskState = {
   taskList: [],
   getTaskLoading: false,
   addTaskLoading: false,
+  deleteTaskLoading: false,
 };
 
 const taskReducer = (state = initialTaskState, { type, payload }) => {
@@ -44,6 +45,25 @@ const taskReducer = (state = initialTaskState, { type, payload }) => {
       return {
         ...state,
         addTaskLoading: false,
+      };
+
+    case taskActionType.DELETE_TASK_BEGINS:
+      return {
+        ...state,
+        deleteTaskLoading: true,
+      };
+
+    case taskActionType.DELETE_TASK_SUCCESS:
+      return {
+        ...state,
+        deleteTaskLoading: false,
+        taskList: state.taskList.filter((task) => task.id !== payload),
+      };
+
+    case taskActionType.DELETE_TASK_FAILURE:
+      return {
+        ...state,
+        deleteTaskLoading: false,
       };
     default:
       return state;

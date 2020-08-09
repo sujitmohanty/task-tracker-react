@@ -31,7 +31,9 @@ export default function ListTasks() {
           <ul className='list-group'>
             {taskListSelector.map((task) => (
               <li
-                className='list-group-item d-flex justify-content-between align-items-center'
+                className={`${
+                  task.isCompleted ? 'task-completed' : 'task-pending'
+                } list-group-item d-flex justify-content-between align-items-center`}
                 key={task.id}
               >
                 {task.title}
